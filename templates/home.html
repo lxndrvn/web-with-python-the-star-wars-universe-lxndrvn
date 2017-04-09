@@ -4,8 +4,12 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Star Wars</title>
-    <link rel="stylesheet" href="static/style.css">
+    <link rel="stylesheet" href="../static/css/style.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../static/js/app.js"></script>
+
 </head>
 
 <body>
@@ -13,9 +17,9 @@
 
         <h1>Star Wars universe planets</h1>
 
-        <button id="prev" class="button">Previous</button>
-        <button id="next" class="button">Next Page</button>
-
+        <button id="prev" class="button" data-url="{{previous}}">Previous</button>
+        <button id="next" class="button" data-url="{{next}}">Next Page</button>
+        <div id="planets"></div>
 
             <table class="table table-bordered" id="planet-info">
                 <thead id="planet-info-thead">
@@ -32,32 +36,42 @@
 
                 </thead>
                 <tbody id="table-body">
-                {% for planet in planets %}
-                <tr>
-                    <td>{{ planet.name }}</td>
-                    <td>{{ planet.diameter }} km</td>
-                    <td>{{ planet.climate }}</td>
-                    <td>{{ planet.gravity }}</td>
-                    <td>{{ planet.terrain }}</td>
-                    <td>{{ planet.surface_water }} %</td>
-                    <td>{{ planet.population }} people </td>
-                    {% if planet.resident_count == 0 %}
-                        <td>No known residents</td>
-                    {% else %}
-                        <td>
-                        <button class="button">{{ planet.resident_count }} residents
-                        </button>
-                        </td>
-                    {% endif %}
-                </tr>
-                {% endfor %}
+
                 </tbody>
 
             </table>
 
     </div>
 
-    <script src="static/main.js"></script>
+     <div class="modal fade" id="resident-modal" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 id="residents-title">Residents</h4>
+          </div>
+          <div class="modal-body">
+              <table class="table table-bordered table-hover">
+                  <thead>
+                      <tr>
+                          <th>Name</th>
+                          <th>Height</th>
+                          <th>Mass</th>
+                          <th>Hair color</th>
+                          <th>Skin color</th>
+                          <th>Eye color</th>
+                          <th>Birth year</th>
+                          <th>Gender</th>
+                      </tr>
+                  </thead>
+                  <tbody id="resident-table">
+                  </tbody>
+              </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
 
 </body>
 
